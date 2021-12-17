@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RibController!{% endblock %}
+
+{% block body %}
+<h1>Bienvenue sur vos relevé de compte</h1>
+
+{% if messageError %}
+        <h3>{{messageError}}</h3>
+{% endif %}
+
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% if results %}
+    <h2> Tableau de compte </h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>date</th>
+                <th>Provenance/destination</th>
+                <th>dépence</th>
+                <th>crédit</th>
+            </tr>
+         </thead>   
+    {% for result in results %}
+        <tr>
+            <td>{{result.date}}</td>
+            <td>{{result.label}}</td>
+            <td>{{result.expense}}</td>
+            <td>{{result.income}}</td>
+        </tr>
+    {% endfor %}
+        <tfoot>
+            <tr>
+                <td>revenue total {{totalIncome}}</td>
+                <td>Dépence Total {{totalExpense}}</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endif %}   
+
+{% endblock %}
